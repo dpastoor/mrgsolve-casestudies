@@ -1,7 +1,7 @@
 new_session: yes
 
 rmd_files: [
-  "index.Rmd"
+  "titration_example.Rmd"
 ]
 
 output_dir: "docs"
