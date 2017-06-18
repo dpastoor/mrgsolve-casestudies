@@ -1,14 +1,6 @@
 
----
-knit: "bookdown::render_book"
-title: "titration example"
-author: ["Devin"]
-description: "titration example"
-site: bookdown::bookdown_site
-documentclass: book
----
-
 # Titration Example
+
 
 ```r
 library(mrgsolve)
