@@ -98,3 +98,7 @@ distinct_doses %>% arrange(ID, desc(time)) %>%
 ```
 
 
+```{r}
+devtools::session_info()
+```
+
