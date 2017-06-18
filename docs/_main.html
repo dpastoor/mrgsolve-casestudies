@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>TITLE</title>
+  <meta name="description" content="titration example">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="TITLE" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="titration example" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="TITLE" />
+  
+  <meta name="twitter:description" content="titration example" />
+  
+
+<meta name="author" content="Devin">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">TITLE</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">TITLE</h1>
+<h4 class="author"><em>Devin</em></h4>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mrgsolve)
+<span class="co">#&gt; Loading required package: methods</span>
+<span class="kw">library</span>(tidyverse, <span class="dt">warn.conflicts =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; Loading tidyverse: ggplot2</span>
+<span class="co">#&gt; Loading tidyverse: tibble</span>
+<span class="co">#&gt; Loading tidyverse: tidyr</span>
+<span class="co">#&gt; Loading tidyverse: readr</span>
+<span class="co">#&gt; Loading tidyverse: purrr</span>
+<span class="co">#&gt; Loading tidyverse: dplyr</span>
+<span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
+<span class="co">#&gt; filter(): dplyr, stats</span>
+<span class="co">#&gt; lag():    dplyr, stats</span></code></pre></div>
+<p>Can interactively develop the cpp functions for the needed functionality and check they work as expected.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(Rcpp)
+<span class="co">#&gt; Loading required package: Rcpp</span>
+
+<span class="kw">cppFunction</span>(<span class="st">&quot;</span>
+<span class="st">            bool within(Rcpp::NumericVector x, double val) {</span>
+<span class="st">   int n = x.size();</span>
+<span class="st">   for (int i = 0; i &lt; n; ++i) {</span>
+<span class="st">      if (x[i] == val) {</span>
+<span class="st">        return true;</span>
+<span class="st">      }</span>
+<span class="st">   }</span>
+<span class="st">   return false;</span>
+<span class="st">}</span>
+<span class="st">            &quot;</span>)
+
+<span class="kw">within</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>), <span class="dv">4</span>)
+<span class="co">#&gt; [1] TRUE</span>
+<span class="kw">within</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>), <span class="dv">5</span>)
+<span class="co">#&gt; [1] FALSE</span>
+<span class="kw">cppFunction</span>(<span class="st">&quot;</span>
+<span class="st">double titrateDose(NumericVector possibleDoses, double currentDose, bool up){</span>
+<span class="st">  if (up) {</span>
+<span class="st">    possibleDoses = possibleDoses[possibleDoses &gt;= currentDose];</span>
+<span class="st">    if (possibleDoses.size() &gt; 1) {</span>
+<span class="st">      return possibleDoses[1]; // 2nd element - one dose higher</span>
+<span class="st">    }</span>
+<span class="st">    // at max dose since only one dose remaining that is &gt;= so keep the same</span>
+<span class="st">    return possibleDoses[0]; </span>
+<span class="st">  } else {</span>
+<span class="st">    possibleDoses = possibleDoses[possibleDoses &lt;= currentDose];</span>
+<span class="st">    if (possibleDoses.size() &gt; 1) {</span>
+<span class="st">          return possibleDoses[possibleDoses.size()-2]; // 2nd to last element - one dose lower</span>
+<span class="st">        } </span>
+<span class="st">        // at min dose since only one dose remaining that is &lt;= so keep the same</span>
+<span class="st">        return possibleDoses[0];</span>
+<span class="st">      }</span>
+<span class="st">}&quot;</span>)
+<span class="kw">titrateDose</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">3</span>, <span class="dt">up =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; [1] 4</span>
+<span class="kw">titrateDose</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">3</span>, <span class="dt">up =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; [1] 2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">mread_cache</span>(<span class="dt">model =</span> <span class="st">&quot;titration&quot;</span>)
+<span class="co">#&gt; Compiling titration ...</span>
+<span class="co">#&gt; done.</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="kw">see</span>(mod1))
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Model file:  titration.cpp </span>
+<span class="co">#&gt;  $PARAM TVCL = 1.3, TVVC=28, TVKA=0.6, WT=70, START_DOSE = 15</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  $SET delta= 1</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  $CMT GUT CENT</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  $PLUGIN Rcpp mrgx</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  $GLOBAL</span>
+<span class="co">#&gt;  using namespace Rcpp;</span>
+<span class="co">#&gt;  NumericVector possibleDoses;</span>
+<span class="co">#&gt;  NumericVector VISITT;</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  bool within(Rcpp::NumericVector x, double val) {</span>
+<span class="co">#&gt;     int n = x.size();</span>
+<span class="co">#&gt;     for (int i = 0; i &lt; n; ++i) {</span>
+<span class="co">#&gt;        if (x[i] == val) {</span>
+<span class="co">#&gt;          return true;</span>
+<span class="co">#&gt;        }</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt;     return false;</span>
+<span class="co">#&gt;  }</span>
+<span class="co">#&gt;  double titrateDose(Rcpp::NumericVector possibleDoses, double currentDose, bool up){</span>
+<span class="co">#&gt;    if (up) {</span>
+<span class="co">#&gt;      possibleDoses = possibleDoses[possibleDoses &gt;= currentDose];</span>
+<span class="co">#&gt;      if (possibleDoses.size() &gt; 1) {</span>
+<span class="co">#&gt;        return possibleDoses[1]; // 2nd element - one dose higher</span>
+<span class="co">#&gt;      }</span>
+<span class="co">#&gt;      return possibleDoses[0]; // at max dose since only one dose remaining that is &gt;= so keep the same</span>
+<span class="co">#&gt;    } else {</span>
+<span class="co">#&gt;      possibleDoses = possibleDoses[possibleDoses &lt;= currentDose];</span>
+<span class="co">#&gt;      if (possibleDoses.size() &gt; 1) {</span>
+<span class="co">#&gt;            return possibleDoses[possibleDoses.size()-2]; // 2nd to last element - one dose lower</span>
+<span class="co">#&gt;          }</span>
+<span class="co">#&gt;          return possibleDoses[0]; // at min dose since only one dose remaining that is &lt;= so keep the same</span>
+<span class="co">#&gt;    }</span>
+<span class="co">#&gt;  }</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  $PREAMBLE</span>
+<span class="co">#&gt;  possibleDoses = mrgx::get&lt;Rcpp::NumericVector&gt;(&quot;possibleDoses&quot;);</span>
+<span class="co">#&gt;  VISITT = mrgx::get&lt;Rcpp::NumericVector&gt;(&quot;VISITT&quot;);</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  $MAIN</span>
+<span class="co">#&gt;  if (NEWIND &lt;= 1) {</span>
+<span class="co">#&gt;    // titration dose to start on, right now not explicitly checking</span>
+<span class="co">#&gt;    // if in possible doses, probably should do that</span>
+<span class="co">#&gt;    F_GUT = START_DOSE;</span>
+<span class="co">#&gt;  }</span>
+<span class="co">#&gt;  if (within(VISITT, TIME)) {</span>
+<span class="co">#&gt;    // only adjust dose on EVID == 1 or also during observation time can trigger a dose</span>
+<span class="co">#&gt;    // adjustment if both dosing and observing at the same time and not</span>
+<span class="co">#&gt;    // also checking EVID == 1</span>
+<span class="co">#&gt;    if (CENT &lt; 10 &amp;&amp; EVID == 1) {</span>
+<span class="co">#&gt;      F_GUT = titrateDose(possibleDoses, F_GUT, true);</span>
+<span class="co">#&gt;    }</span>
+<span class="co">#&gt;    if (CENT &gt; 15 &amp;&amp; EVID == 1) {</span>
+<span class="co">#&gt;      F_GUT = titrateDose(possibleDoses, F_GUT, false);</span>
+<span class="co">#&gt;    }</span>
+<span class="co">#&gt;  }</span>
+<span class="co">#&gt;  double CLi = exp(log(TVCL) + 0.75*log(WT/70) + ETA(1));</span>
+<span class="co">#&gt;  double VCi = exp(log(TVVC) + ETA(2));</span>
+<span class="co">#&gt;  double KAi = exp(log(TVKA) + ETA(3));</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  $OMEGA name=&quot;IIV&quot;</span>
+<span class="co">#&gt;  0.1 0 0</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  $ODE</span>
+<span class="co">#&gt;  dxdt_GUT = -KAi*GUT;</span>
+<span class="co">#&gt;  dxdt_CENT = KAi*GUT - (CLi/VCi)*CENT;</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  $TABLE</span>
+<span class="co">#&gt;  double CP = CENT/VCi;</span>
+<span class="co">#&gt;  double ETA1 = ETA(1);</span>
+<span class="co">#&gt;  double ETA2 = ETA(2);</span>
+<span class="co">#&gt;  </span>
+<span class="co">#&gt;  $CAPTURE ETA(1) ETA(2) F_GUT</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">possibleDoses &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="fl">7.5</span>, <span class="fl">10.0</span>, <span class="fl">12.5</span>, <span class="dv">15</span>, <span class="fl">17.5</span>, <span class="dv">20</span>, <span class="dv">30</span>)
+<span class="co"># times to check and titrate dose accordingly</span>
+VISITT &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">48</span>,<span class="dv">300</span>, <span class="dv">48</span>)
+out &lt;-<span class="st"> </span>mod1 <span class="op">%&gt;%</span>
+<span class="kw">data_set</span>(<span class="kw">realize_addl</span>(<span class="kw">ev</span>(<span class="dt">ID=</span><span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">amt=</span><span class="dv">1</span>, <span class="dt">ii=</span><span class="dv">12</span>, <span class="dt">addl=</span><span class="dv">24</span>))) <span class="op">%&gt;%</span>
+<span class="kw">mrgsim</span>(<span class="dt">end=</span><span class="dv">12</span><span class="op">*</span><span class="dv">24</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">as_data_frame</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out <span class="op">%&gt;%</span>
+<span class="kw">ggplot</span>(<span class="kw">aes</span>(time, CENT, <span class="dt">group=</span>ID, <span class="dt">color =</span> <span class="kw">factor</span>(ID)))<span class="op">+</span>
+<span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="kw">facet_wrap</span>(<span class="op">~</span>ID) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="titration_example_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Conclusion - starting dose too high, and algorithm not aggressive enough to titrate down.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">distinct_doses &lt;-<span class="st"> </span>out <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(ID, F_GUT, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(ID, time, F_GUT)
+<span class="kw">head</span>(distinct_doses, <span class="dt">n =</span> <span class="dv">10</span>)
+<span class="co">#&gt; # A tibble: 10 x 3</span>
+<span class="co">#&gt;      ID  time F_GUT</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     0  15.0</span>
+<span class="co">#&gt; 2     1    48  12.5</span>
+<span class="co">#&gt; 3     2     0  15.0</span>
+<span class="co">#&gt; 4     2    48  12.5</span>
+<span class="co">#&gt; 5     2    96  10.0</span>
+<span class="co">#&gt; 6     2   144   7.5</span>
+<span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># time at which stabilized (final dose first seen)</span>
+distinct_doses <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(ID, <span class="kw">desc</span>(time)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>(ID, <span class="dt">.keep_all =</span> T)
+<span class="co">#&gt; # A tibble: 9 x 3</span>
+<span class="co">#&gt;      ID  time F_GUT</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1    48  12.5</span>
+<span class="co">#&gt; 2     2   144   7.5</span>
+<span class="co">#&gt; 3     3   192   5.0</span>
+<span class="co">#&gt; 4     4   192   5.0</span>
+<span class="co">#&gt; 5     5   144   7.5</span>
+<span class="co">#&gt; 6     6   144   7.5</span>
+<span class="co">#&gt; # ... with 3 more rows</span></code></pre></div>
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
